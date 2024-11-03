@@ -23,3 +23,17 @@ def transcribe_audio(audio_file):
         audio_data = recognizer.record(source)
         text = recognizer.recognize_google(audio_data)
     return text
+
+def count_english_worsds(text):
+    #Приводим текст к нижнему регистру и разбиваем на слова
+    words = re.findall('r\b\w+\b', text.lower())
+    # Считаем количество вхождений каждого слова
+    word_counts = Counter(words)
+
+    return word_counts
+
+def save_word_counts(word_counts, output_file):
+    #save result
+    with open(output_file, 'w', encoding='utf-8') as file:
+        for word, count in word_counts.items():
+            file.write(f"{word}: {count}\n")
